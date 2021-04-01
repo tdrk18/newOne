@@ -29,7 +29,8 @@ jobs:
         env:
           BITRISE_SLUG: ${{ secrets.BITRISE_SLUG }}
           BITRISE_TOKEN: ${{ secrets.BITRISE_TOKEN }}
+          BITRISE_EMPTY_WORKFLOW: ${{ secrets.BITRISE_EMPTY_WORKFLOW }}
         run: |
           echo "https://api.bitrise.io/v0.1/apps/${BITRISE_SLUG}/builds"
-          echo $(curl -X GET -H "Authorization: ${BITRISE_TOKEN}" -H "accept: application/json" https://api.bitrise.io/v0.1/apps/${BITRISE_SLUG}/builds)
+          echo $(curl -X POST "https://api.bitrise.io/v0.1/apps/${BITRISE_SLUG}/builds" -H "accept: application/json" -H "Authorization: ${BITRISE_TOKEN}" -H "Content-Type: application/json" -d "{ \"build_params\": { \"branch\": \"${{ steps.upstreambranch.outputs.branchname }}\", \"workflow_id\": \"${BITRISE_EMPTY_WORKFLOW}\" }, \"hook_info\": { \"type\": \"bitrise\" }}")
         
