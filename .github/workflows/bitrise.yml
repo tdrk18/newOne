@@ -23,3 +23,12 @@ jobs:
       - name: Display branch name
         run: |
           echo ${{ steps.upstreambranch.outputs.branchname }}
+          
+      - name: Create bitrise API call
+        if: startsWith(steps.upstreambranch.outputs.branchname, 'release')
+        env:
+          BITRISE_SLUG: ${{ secrets.BITRISE_SLUG }}
+          BITRISE_TOKEN: ${{ secrets.BITRISE_TOKEN }}
+        run: |
+          echo "https://api.bitrise.io/v0.1/apps/${BITRISE_SLUG}/builds"
+        
