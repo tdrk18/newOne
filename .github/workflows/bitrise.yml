@@ -6,37 +6,30 @@ on:
   issue_comment:
     types: [created]
 
-  workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
     if: contains(github.event.comment.html_url, '/pull/') && startsWith(github.event.comment.body, '/submit')
     steps:
       - name: Get branch name
-        id: upstreambranch
+        id: upstream_branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "::set-output name=branchname::$(curl -H "Authorization: token ${GITHUB_TOKEN}" ${{ github.event.issue.pull_request.url }} | jq '.head.ref' | sed 's/\"//g')"
-        
-      - name: Display branch name
-        run: |
-          echo ${{ steps.upstreambranch.outputs.branchname }}
           
       - name: Create bitrise API call
         id: call_bitrise_api
-        if: startsWith(steps.upstreambranch.outputs.branchname, 'release')
+        if: startsWith(steps.upstream_branch.outputs.branchname, 'release')
         env:
           BITRISE_SLUG: ${{ secrets.BITRISE_SLUG }}
           BITRISE_TOKEN: ${{ secrets.BITRISE_TOKEN }}
           BITRISE_EMPTY_WORKFLOW: "Empty-workflow"
         run: |
-          echo "https://api.bitrise.io/v0.1/apps/${BITRISE_SLUG}/builds"
-          echo "::set-output name=result::$(curl -X POST "https://api.bitrise.io/v0.1/apps/${BITRISE_SLUG}/builds" -H "accept: application/json" -H "Authorization: ${BITRISE_TOKEN}" -H "Content-Type: application/json" -d "{ \"build_params\": { \"branch\": \"${{ steps.upstreambranch.outputs.branchname }}\", \"workflow_id\": \"${BITRISE_EMPTY_WORKFLOW}\" }, \"hook_info\": { \"type\": \"bitrise\" }}")"
+          echo "::set-output name=result::$(curl -X POST "https://api.bitrise.io/v0.1/apps/${BITRISE_SLUG}/builds" -H "accept: application/json" -H "Authorization: ${BITRISE_TOKEN}" -H "Content-Type: application/json" -d "{ \"build_params\": { \"branch\": \"${{ steps.upstream_branch.outputs.branchname }}\", \"workflow_id\": \"${BITRISE_EMPTY_WORKFLOW}\" }, \"hook_info\": { \"type\": \"bitrise\" }}")"
         
       - name: Post comment
-        if: startsWith(steps.upstreambranch.outputs.branchname, 'release') && success()
+        if: startsWith(steps.upstream_branch.outputs.branchname, 'release') && success()
         uses: actions/github-script@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
