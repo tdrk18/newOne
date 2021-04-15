@@ -19,4 +19,9 @@ jobs:
           RESPONSE=$(curl -H "Authorization: token ${GITHUB_TOKEN}" ${{ github.event.issue.pull_request.url }})
           echo ${RESPONSE}
           echo "::set-output name=branchname::$(echo ${RESPONSE} | jq '.head.ref' | sed 's/\"//g')"
-          echo "::set-output name=pull_request_title::$(echo $RESPONSE | jq '.head.ref' | sed 's/\"//g')"
+          echo "::set-output name=pull_request_title::$(echo $RESPONSE | jq '.title')"
+          
+      - name: Output
+        run: |
+          echo ${{ steps.upstream_branch.outputs.branchname }}
+          echo ${{ steps.upstream_branch.outputs.pull_request_title }}
