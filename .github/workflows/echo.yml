@@ -8,4 +8,4 @@ jobs:
     steps:
       - name: Echo
         run: |
-          echo 'test'
+          echo '::debug::test'
