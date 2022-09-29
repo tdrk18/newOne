@@ -10,7 +10,7 @@ jobs:
         run: |
           swift --version
           swift_version=$(swift --version)
-          echo "::set-output name=swift_version::$(echo ${swift_version})"
+          echo "::set-output name=swift_version::$(swift --version)"
 
       - name: debug
         run: |
