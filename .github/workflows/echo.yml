@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: get_swift_version
-        id: get_swift_version
+        #id: get_swift_version
         run: |
           swift --version
           swift_version=`swift --version`
