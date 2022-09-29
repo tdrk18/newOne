@@ -10,8 +10,16 @@ jobs:
         id: get_swift_version
         run: |
           swift --version
-      #    swift_version=`swift --version`
-      #    echo "::set-output name=swift_version::$swift_version"
+          swift_version=`swift --version`
+          echo "::set-output name=swift_version::$swift_version"
+          
+      - name: Cache Build Tools
+        uses: actions/cache@v2
+        env:
+          cache-name: swiftformat-triggerd-by-main-merge
+        with:
+          path: ./README.md
+          key: v1-${{ runner.os }}-${{ env.cache-name }}-${{ steps.get_swift_version.outputs.swift_version }}
 
       #- name: debug
       #  run: |
