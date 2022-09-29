@@ -10,9 +10,9 @@ jobs:
         id: get_swift_version
         run: |
           swift --version
-          swift_version=`swift --version`
-          echo "::set-output name=swift_version::$swift_version"
+      #    swift_version=`swift --version`
+      #    echo "::set-output name=swift_version::$swift_version"
 
-      - name: debug
-        run: |
-          echo ${{ steps.get_swift_version.outputs.swift_version }}
+      #- name: debug
+      #  run: |
+      #    echo ${{ steps.get_swift_version.outputs.swift_version }}
