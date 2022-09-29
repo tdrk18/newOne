@@ -6,6 +6,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo
+      - name: get_swift_version
         run: |
-          echo '::debug::test'
+          swift_version=`swift --version`
+          echo "::set-output name=swift_version::$swift_version"
+
+      - name: debug
+        run: |
+          echo ${{ steps.get_swift_version.outputs.swift_version }}
