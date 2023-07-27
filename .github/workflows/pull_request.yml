@@ -1,0 +1,16 @@
+name: Update Package.resolved for Renovate
+
+on:
+  pull_request:
+    types: 
+      - opened
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check
+        run: |
+          git rev-parse HEAD
+          echo ${{ github.event.pull_request.head.ref }}
