@@ -4,9 +4,12 @@ on:
   pull_request:
     types: 
       - opened
+    paths: 
+      - test.txt
 
 jobs:
   test:
+    if: startsWith(github.head_ref, 'test/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
