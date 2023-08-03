@@ -7,7 +7,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Status
+        run: |
+          echo "success"
+          exit 0
       - name: Send GitHub Action trigger message
+        if: failure()
         uses: slackapi/slack-github-action@v1.24.0
         with:
           payload: |
