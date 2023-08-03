@@ -23,7 +23,7 @@ jobs:
               "text": "SwiftFormat daily が失敗しました",
               "attachments": [
                 {
-                  "title": ":x: ${{ github.workflow }} #${{ github.run_number }}",
+                  "title": "${{ github.workflow }} #${{ github.run_number }}",
                   "title_link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
                   "color": "#ff0000"
                 }
