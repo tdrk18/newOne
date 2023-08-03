@@ -11,6 +11,9 @@ jobs:
         run: |
           echo "success"
           exit 0
+      - name: something step
+        run: |
+          echo "something"
       - name: Send GitHub Action trigger message
         if: failure()
         uses: slackapi/slack-github-action@v1.24.0
