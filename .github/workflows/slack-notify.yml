@@ -1,3 +1,5 @@
+name: SwiftFormat daily
+
 on:
   workflow_dispatch:
 
@@ -8,10 +10,9 @@ jobs:
       - name: Send GitHub Action trigger message
         uses: slackapi/slack-github-action@v1.24.0
         with:
-          # For posting a rich message using Block Kit
           payload: |
             {
-              "text": "SwiftFormat daily",
+              "text": "SwiftFormat daily が失敗しました",
               "attachments": [
                 {
                   "title": ":x: ${{ github.workflow }} #${{ github.run_number }}",
