@@ -31,16 +31,16 @@ jobs:
       - name: Get tag
         id: get_tag
         run: |
+          if [[ ${GITHUB_REF#refs/tags/} == *"refs/heads/"* ]]; then
+            echo "Please select tag"
+            exit 1
+          fi
           echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Execute script
         run: |
-          if [[ ${{ steps.get_tag.outputs.tag }} == *"refs/heads/"* ]]; then
-            echo "Please select tag"
-            exit 1
-          fi
           echo ${{ steps.get_tag.outputs.tag }}
           echo ${{ inputs.build_flavor }}
           echo ${{ inputs.priority }}
