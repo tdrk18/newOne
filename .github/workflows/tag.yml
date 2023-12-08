@@ -1,0 +1,42 @@
+name: Tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_flavor:
+        description: 'Build Flavor'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+      priority:
+        description: 'In app update priority'
+        required: true
+        default: '0'
+        type: choice
+        options:
+          - '0'
+          - '1'
+          - '2'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CIRCLE_TOKEN: ${{ secrets.CIRCLE_TOKEN }}
+    steps:
+      - name: Get tag
+        id: get_tag
+        run: |
+          echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Execute script
+        run: |
+          echo ${{ steps.get_tag.outputs.tag }}
+          echo ${{ inputs.build_flavor }}
+          echo ${{ inputs.priority }}
