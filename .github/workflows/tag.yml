@@ -37,7 +37,7 @@ jobs:
           fetch-depth: 0
       - name: Execute script
         run: |
-          if [ ${{ steps.get_tag.outputs.tag }} =~ "refs/heads/" ]; then
+          if [ ${{ steps.get_tag.outputs.tag }} == *"refs/heads/"* ]; then
             echo "Please select tag"
             exit 1
           fi
