@@ -38,6 +38,7 @@ jobs:
       - name: Execute script
         run: |
           if [ -z ${{ steps.get_tag.outputs.tag }} ]; then
+            echo "Please select tag"
             exit 1
           fi
           echo ${{ steps.get_tag.outputs.tag }}
