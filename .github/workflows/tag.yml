@@ -37,6 +37,9 @@ jobs:
           fetch-depth: 0
       - name: Execute script
         run: |
+          if [ -z ${{ steps.get_tag.outputs.tag }} ]; then
+            exit 1
+          fi
           echo ${{ steps.get_tag.outputs.tag }}
           echo ${{ inputs.build_flavor }}
           echo ${{ inputs.priority }}
