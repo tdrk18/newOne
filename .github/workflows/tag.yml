@@ -14,8 +14,7 @@ on:
           - production
       priority:
         description: 'In app update priority'
-        required: true
-        default: '0'
+        required: false
         type: choice
         options:
           - '0'
