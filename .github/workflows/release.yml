@@ -47,6 +47,8 @@ jobs:
           fi
           echo "tag=${{github.ref_name}}" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.get_tag.outputs.tag }}
       - name: Execute script
         run: |
           ./bin/script.sh -j ${{ inputs.job }} -r ${{ steps.get_tag.outputs.tag }} -f ${{ inputs.build_flavor }} -p ${{ inputs.priority }}
