@@ -1,8 +1,16 @@
-name: Tag
+name: Release
 
 on:
   workflow_dispatch:
     inputs:
+      job:
+        description: 'Job'
+        required: true
+        default: 'release_draft'
+        type: choice
+        options:
+          - 'release_draft'
+          - 'update_google_play_store'
       build_flavor:
         description: 'Build Flavor'
         required: true
@@ -43,4 +51,4 @@ jobs:
           fetch-depth: 0
       - name: Execute script
         run: |
-          ./bin/script.sh -j "release_draft" -r ${{ steps.get_tag.outputs.tag }} -f ${{ inputs.build_flavor }} -p ${{ inputs.priority }}
+          ./bin/script.sh -j ${{ inputs.job }} -r ${{ steps.get_tag.outputs.tag }} -f ${{ inputs.build_flavor }} -p ${{ inputs.priority }}
