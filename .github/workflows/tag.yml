@@ -30,6 +30,7 @@ jobs:
       - name: Get tag
         id: get_tag
         run: |
+          : # https://github.com/orgs/community/discussions/26686
           echo ${GITHUB_REF}
           echo ${{github.ref_name}}
           if [[ ${GITHUB_REF#refs/tags/} == *"refs/heads/"* ]]; then
