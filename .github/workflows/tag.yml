@@ -40,6 +40,4 @@ jobs:
           fetch-depth: 0
       - name: Execute script
         run: |
-          echo ${{ steps.get_tag.outputs.tag }}
-          echo ${{ inputs.build_flavor }}
-          echo ${{ inputs.priority }}
+          ./bin/script.sh -j "release_draft" -r ${{ steps.get_tag.outputs.tag }} -f ${{ inputs.build_flavor }} -p ${{ inputs.priority }}
