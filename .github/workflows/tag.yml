@@ -30,6 +30,7 @@ jobs:
       - name: Get tag
         id: get_tag
         run: |
+          echo ${{github.ref_name}}
           if [[ ${GITHUB_REF#refs/tags/} == *"refs/heads/"* ]]; then
             echo "Please select tag"
             exit 1
