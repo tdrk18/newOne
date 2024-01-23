@@ -60,45 +60,53 @@ jobs:
           echo "${{ steps.script.outputs.build_url }}"
       - name: Send GitHub Action trigger message
         if: success()
-        uses: slackapi/slack-github-action@v1.24.0
-        with:
-          payload: |
-            {
-              "text": "${{ inputs.job }} が開始しました",
-              "attachments": [
-                {
-                  "title": "${{ github.workflow }} #${{ github.run_number }}",
-                  "title_link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-                  "color": "#36a64f",
-                  "fields": [
-                    {
-                      "title": "job",
-                      "value": "${{ inputs.job }}",
-                      "short": "true"
-                    },
-                    {
-                      "title": "build_flavor",
-                      "value": "${{ inputs.build_flavor }}",
-                      "short": "true"
-                    },
-                    {
-                      "title": "revision",
-                      "value": "${{ steps.get_tag.outputs.tag }}",
-                      "short": "true"
-                    },
-                    {
-                      "title": "priority",
-                      "value": "${{ inputs.priority }}",
-                      "short": "true"
-                    },
-                    {
-                      "title": "build_url",
-                      "value": "${{ steps.script.outputs.build_url }}"
-                    }
-                  ]
-                }
-              ]
-            }
+        uses: rtCamp/action-slack-notify@v2
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+          SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+          SLACK_MESSAGE: "build_url: ${{ steps.script.outputs.build_url }}"
+          SLACK_TITLE: "${{ inputs.job }}を開始しました"
+          SLACK_USERNAME: Release action
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        # uses: slackapi/slack-github-action@v1.24.0
+        # with:
+        #   payload: |
+        #     {
+        #       "text": "${{ inputs.job }} が開始しました",
+        #       "attachments": [
+        #         {
+        #           "title": "${{ github.workflow }} #${{ github.run_number }}",
+        #           "title_link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+        #           "color": "#36a64f",
+        #           "fields": [
+        #             {
+        #               "title": "job",
+        #               "value": "${{ inputs.job }}",
+        #               "short": "true"
+        #             },
+        #             {
+        #               "title": "build_flavor",
+        #               "value": "${{ inputs.build_flavor }}",
+        #               "short": "true"
+        #             },
+        #             {
+        #               "title": "revision",
+        #               "value": "${{ steps.get_tag.outputs.tag }}",
+        #               "short": "true"
+        #             },
+        #             {
+        #               "title": "priority",
+        #               "value": "${{ inputs.priority }}",
+        #               "short": "true"
+        #             },
+        #             {
+        #               "title": "build_url",
+        #               "value": "${{ steps.script.outputs.build_url }}"
+        #             }
+        #           ]
+        #         }
+        #       ]
+        #     }
+        # env:
+        #   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        #   SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
