@@ -52,7 +52,7 @@ jobs:
       - name: Execute script
         id: script
         run: |
-          response=$(./bin/script.sh -j ${{ inputs.job }} -r ${{ steps.get_tag.outputs.tag }} -f ${{ inputs.build_flavor }} -p ${{ inputs.priority }})
+          response=$(./bin/script.sh -j ${{ inputs.job }} -r ${{ steps.get_tag.outputs.tag }} -f ${{ inputs.build_flavor }} -p ${{ inputs.priority }} | grep TITLE)
           echo $response
           echo "response=${response}" >> $GITHUB_OUTPUT
       - name: echo
