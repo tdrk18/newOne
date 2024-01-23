@@ -74,23 +74,27 @@ jobs:
                   "fields": [
                     {
                       "title": "job",
-                      "value": "${{ inputs.job }}"
+                      "value": "${{ inputs.job }}",
+                      "short": "true"
                     },
                     {
                       "title": "build_flavor",
-                      "value": "${{ inputs.build_flavor }}"
+                      "value": "${{ inputs.build_flavor }}",
+                      "short": "true"
                     },
                     {
                       "title": "revision",
-                      "value": "${{ steps.get_tag.outputs.tag }}"
+                      "value": "${{ steps.get_tag.outputs.tag }}",
+                      "short": "true"
                     },
                     {
                       "title": "priority",
-                      "value": "${{ inputs.priority }}"
+                      "value": "${{ inputs.priority }}",
+                      "short": "true"
                     },
                     {
                       "title": "build_url",
-                      "value": "${{ steps.request_release.outputs.result }}"
+                      "value": "${{ steps.request_release.outputs.response }}"
                     }
                   ]
                 }
