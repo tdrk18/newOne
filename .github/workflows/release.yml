@@ -53,7 +53,7 @@ jobs:
         id: script
         run: |
           result=$(./bin/script.sh -j ${{ inputs.job }} -r ${{ steps.get_tag.outputs.tag }} -f ${{ inputs.build_flavor }} -p ${{ inputs.priority }} | grep build_url)
-          build_url=$(echo $result cut -d '"' -f4)
+          build_url=$(echo $result | cut -d '"' -f4)
           echo "build_url=${build_url}" >> $GITHUB_OUTPUT
       - name: echo
         run: |
