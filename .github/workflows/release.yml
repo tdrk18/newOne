@@ -52,10 +52,8 @@ jobs:
       - name: Execute script
         id: script
         run: |
-          result=$(./bin/script.sh -j ${{ inputs.job }} -r ${{ steps.get_tag.outputs.tag }} -f ${{ inputs.build_flavor }} -p ${{ inputs.priority }})
-          response=$(echo $result | grep TITLE)
-          echo $response
-          echo "response=${response}" >> $GITHUB_OUTPUT
+          result=$(./bin/script.sh -j ${{ inputs.job }} -r ${{ steps.get_tag.outputs.tag }} -f ${{ inputs.build_flavor }} -p ${{ inputs.priority }} | grep build_url)
+          echo "result=${result}" >> $GITHUB_OUTPUT
       - name: echo
         run: |
           echo "${{ steps.script.outputs.response }}"
@@ -94,7 +92,7 @@ jobs:
                     },
                     {
                       "title": "build_url",
-                      "value": "${{ steps.request_release.outputs.response }}"
+                      "value": "${{ steps.request_release.outputs.result }}"
                     }
                   ]
                 }
