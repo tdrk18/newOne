@@ -72,11 +72,26 @@ jobs:
                   "title_link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
                   "color": "#36a64f",
                   "fields": [
-                    "job: ${{ inputs.job }}",
-                    "build_flavor: ${{ inputs.build_flavor }}",
-                    "revision: ${{ steps.get_tag.outputs.tag }}",
-                    "priority: ${{ inputs.priority }}",
-                    "build_url: ${{ steps.request_release.outputs.result }}"
+                    {
+                      "title": "job",
+                      "value": "${{ inputs.job }}"
+                    },
+                    {
+                      "title": "build_flavor",
+                      "value": "${{ inputs.build_flavor }}"
+                    },
+                    {
+                      "title": "revision",
+                      "value": "${{ steps.get_tag.outputs.tag }}"
+                    },
+                    {
+                      "title": "priority",
+                      "value": "${{ inputs.priority }}"
+                    },
+                    {
+                      "title": "build_url",
+                      "value": "${{ steps.request_release.outputs.result }}"
+                    },
                   ]
                 }
               ]
