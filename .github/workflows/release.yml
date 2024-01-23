@@ -91,7 +91,7 @@ jobs:
                     {
                       "title": "build_url",
                       "value": "${{ steps.request_release.outputs.result }}"
-                    },
+                    }
                   ]
                 }
               ]
