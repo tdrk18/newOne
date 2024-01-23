@@ -59,3 +59,28 @@ jobs:
       - name: echo
         run: |
           echo "${{ steps.script.outputs.response }}"
+      - name: Send GitHub Action trigger message
+        if: success()
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "${{ inputs.job }} が開始しました",
+              "attachments": [
+                {
+                  "title": "${{ github.workflow }} #${{ github.run_number }}",
+                  "title_link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+                  "color": "#36a64f",
+                  "fields": [
+                    "job: ${{ inputs.job }}",
+                    "build_flavor: ${{ inputs.build_flavor }}",
+                    "revision: ${{ steps.get_tag.outputs.tag }}",
+                    "priority: ${{ inputs.priority }}",
+                    "build_url: ${{ steps.request_release.outputs.result }}"
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
