@@ -64,10 +64,11 @@ jobs:
         env:
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
           SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
-          SLACK_MESSAGE: "build_url: ${{ steps.script.outputs.build_url }}"
-          SLACK_TITLE: "${{ inputs.job }}を開始しました"
-          SLACK_USERNAME: Release action
+          SLACK_MESSAGE: "build_flavor: ${{ inputs.build_flavor }}\npriority: ${{ inputs.priority }}\nbuild_url: ${{ steps.script.outputs.build_url }}"
+          SLACK_TITLE: "${{ inputs.job }}"
+          SLACK_USERNAME: "Release action"
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          MSG_MINIMAL: event,commit
         # uses: slackapi/slack-github-action@v1.24.0
         # with:
         #   payload: |
