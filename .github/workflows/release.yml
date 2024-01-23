@@ -66,7 +66,6 @@ jobs:
           SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
           SLACK_MESSAGE: "job: ${{ inputs.job }}\nbuild_flavor: ${{ inputs.build_flavor }}\npriority: ${{ inputs.priority }}\nbuild_url: ${{ steps.script.outputs.build_url }}"
           SLACK_TITLE: "Result"
-          SLACK_USERNAME: "Release action"
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           MSG_MINIMAL: ref,actions url
           SLACK_FOOTER: ""
