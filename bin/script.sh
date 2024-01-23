@@ -22,4 +22,12 @@ echo ${revision}
 echo ${priority}
 echo ${build_flavor}
 
-curl google.com | grep TITLE
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -H "Circle-Token: $CIRCLE_TOKEN" \
+     -d '{
+          "build_parameters": {
+          "CIRCLE_JOB": "say-hello-workflow"
+        }
+      }' \
+     https://circleci.com/api/v1.1/project/github/tdrk18/newOne/tree/$revision | grep build_url
