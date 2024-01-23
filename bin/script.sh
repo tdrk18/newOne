@@ -21,3 +21,5 @@ echo ${job}
 echo ${revision}
 echo ${priority}
 echo ${build_flavor}
+
+curl google.com | grep TITLE
