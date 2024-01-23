@@ -57,4 +57,4 @@ jobs:
           echo "response=${response}" >> $GITHUB_OUTPUT
       - name: echo
         run: |
-          echo ${{ steps.script.outputs.response }}
+          echo "${{ steps.script.outputs.response }}"
