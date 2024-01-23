@@ -34,6 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CIRCLE_TOKEN: ${{ secrets.CIRCLE_TOKEN }}
+      SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
     steps:
       - name: Get tag
         id: get_tag
@@ -63,7 +64,7 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-          SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+          SLACK_ICON: ${{ env.SLACK_ICON }}
           SLACK_MESSAGE: "job: ${{ inputs.job }}\nbuild_flavor: ${{ inputs.build_flavor }}\npriority: ${{ inputs.priority }}\nbuild_url: ${{ steps.script.outputs.build_url }}"
           SLACK_TITLE: "Result"
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
