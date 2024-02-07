@@ -42,10 +42,10 @@ jobs:
           : # https://github.com/orgs/community/discussions/26686
           echo ${GITHUB_REF}
           echo ${{github.ref_name}}
-          : #if [[ ${{ github.ref }} == *"refs/heads/"* ]]; then
-          : #  echo "Please select tag"
-          : #  exit 1
-          : #fi
+          if [[ ${{ github.ref }} == *"refs/heads/"* ]] && [[ ${{ inputs.build_flavor == 'production' }} ]]; then
+            echo "Please select tag"
+            exit 1
+          fi
           echo "tag=${{github.ref_name}}" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v4
         with:
