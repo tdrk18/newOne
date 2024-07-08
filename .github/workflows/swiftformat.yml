@@ -1,0 +1,19 @@
+name: SwiftFormat
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_and_run:
+    runs-on: ubuntu-latest
+    env:
+      MINT_PATH: ${{ vars.MINT_PATH }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: irgaly/setup-mint@v1
+        with:
+          bootstrap: false
+
+      - name: Format
+        run: which mint
+        
