@@ -13,11 +13,10 @@ jobs:
       - uses: irgaly/setup-mint@v1
         with:
           bootstrap: false
+      - run: echo "$HOME/bin" >> $GITHUB_PATH
 
       - name: Format
         run: |
           echo "$HOME/bin"
-          echo "$HOME/bin" >> $GITHUB_PATH
           echo $GITHUB_PATH
           mint help
-        
