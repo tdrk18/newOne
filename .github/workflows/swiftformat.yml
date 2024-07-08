@@ -16,6 +16,6 @@ jobs:
 
       - name: Format
         run: |
-          echo "$HOME/bin" >> $GITHUB_PATH
+          echo "$HOME/bin/mint" >> $GITHUB_PATH
           which mint
         
