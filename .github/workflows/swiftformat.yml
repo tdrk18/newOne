@@ -15,5 +15,7 @@ jobs:
           bootstrap: false
 
       - name: Format
-        run: which mint
+        run: |
+          echo "$HOME/bin" >> $GITHUB_PATH
+          which mint
         
