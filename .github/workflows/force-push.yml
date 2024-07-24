@@ -4,13 +4,19 @@ on:
   pull_request:
     types:
       - opened
+    paths:
+      - 'README.md'
   push:
+    branches: 
+      - 'renovate/**'
+    paths: 
+      - 'README.md'
 
 jobs:
   build:
-    if: ${{ github.event.forced }}
+    if: ${{ github.actor == 'renovate[bot]' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.event.forced) }}
     runs-on: ubuntu-latest
     steps:
       - name: Echo
         run: |
-          echo force push triggered
+          echo 'Hello world!'
