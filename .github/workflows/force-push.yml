@@ -1,0 +1,16 @@
+name: Force push detected
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  build:
+    if: ${{ github.event.forced }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo
+        run: |
+          echo force push triggered
