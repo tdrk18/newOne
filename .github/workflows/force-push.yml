@@ -14,7 +14,7 @@ on:
 
 jobs:
   build:
-    if: ${{ github.actor == 'renovate[bot]' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.event.forced) }}
+    if: ${{ (github.actor == 'tdrk18' && (github.event_name == 'pull_request' || (github.event_name == 'push' && github.event.forced) ))) || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - name: Echo
