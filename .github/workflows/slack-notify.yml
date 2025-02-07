@@ -28,6 +28,10 @@ jobs:
           )"
           '{ text: $text , attachments: $data}'
           > payload.json
+      - name: check
+        if: always()
+        run: |
+          cat payload.json
       - name: Send GitHub Action trigger message
         if: failure()
         uses: slackapi/slack-github-action@v2.0.0
