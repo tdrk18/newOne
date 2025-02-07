@@ -14,6 +14,9 @@ jobs:
       - name: something step
         run: |
           echo "something"
+      - name: create json
+        run: |
+          jq -n --arg text `echo hoge` --argjson data "$(jq -n --arg title "${{ github.workflow }} #${{ github.run_number }}" --arg title_link "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" '{ title: $title, title_link: $title_link }')" '{ text: $text | attachments: $data}'
       - name: Send GitHub Action trigger message
         if: failure()
         uses: slackapi/slack-github-action@v2.0.0
