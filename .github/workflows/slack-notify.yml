@@ -18,15 +18,15 @@ jobs:
         if: always()
         run: >
           jq -n
-          --arg text `echo hoge`
-          --argjson data "$( \
-            jq -n \
-            --arg title "${{ github.workflow }} #${{ github.run_number }}" \
-            --arg title_link "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-            --arg text "branch: ${{ github.event.pull_request.head.ref }}" \
-            '{ title: $title, title_link: $title_link, color: "#ff0000", text: $text }' \
-          )"
-          '{ text: $text , attachments: $data}'
+          '{ \
+            "text": "hoge",\\
+            "attachments": [ \
+              { \
+                "title": " #run_number", \
+                "title_link": "server_url/repository/actions/runs/run_id" \
+              } \
+            ] \
+          }'
           > payload.json
       - name: check
         if: always()
