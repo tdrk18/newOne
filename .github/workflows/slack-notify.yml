@@ -19,11 +19,11 @@ jobs:
         run: >
           jq -n
           "{ \
-            "text": `echo hoge`, \
-            "attachments": [ \
+            \"text\": `echo hoge`, \
+            \"attachments\": [ \
               { \
-                "title": " #run_number", \
-                "title_link": "server_url/repository/actions/runs/run_id" \
+                \"title\": \" #run_number\", \
+                \"title_link\": \"server_url/repository/actions/runs/run_id\" \
               } \
             ] \
           }"
