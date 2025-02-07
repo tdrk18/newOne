@@ -19,7 +19,7 @@ jobs:
         run: >
           jq -n
           "{ \
-            \"text\": `echo hoge`, \
+            \"text\": \"`echo hoge`\", \
             \"attachments\": [ \
               { \
                 \"title\": \" #run_number\", \
