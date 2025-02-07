@@ -18,14 +18,14 @@ jobs:
         if: always()
         run: >
           jq -n
-          "{ 
-            "text": `echo hoge`,
-            "attachments": [
-              { 
-                "title": " #run_number", 
-                "title_link": "server_url/repository/actions/runs/run_id" 
-              } 
-            ] 
+          "{ \
+            "text": `echo hoge`, \
+            "attachments": [ \
+              { \
+                "title": " #run_number", \
+                "title_link": "server_url/repository/actions/runs/run_id" \
+              } \
+            ] \
           }"
           > payload.json
       - name: check
