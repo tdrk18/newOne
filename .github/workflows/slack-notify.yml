@@ -22,8 +22,13 @@ jobs:
             \"text\": \"`echo hoge`\", \
             \"attachments\": [ \
               { \
-                \"title\": \" #run_number\", \
-                \"title_link\": \"server_url/repository/actions/runs/run_id\" \
+                \"title\": \"${{ github.workflow }} #${{ github.run_number }}\", \
+                \"title_link\": \"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\", \
+                \"color\": \"#ff0000\"\", \
+                \"fields\": [ \
+                  \"title\": \"Branch\", \
+                  \"value\": \"${{ github.event.pull_request.head.ref }}\", \
+                ] \
               } \
             ] \
           }"
