@@ -18,12 +18,12 @@ jobs:
         if: always()
         run: >
           jq -n
-          '{ \
+          "{ \
             text: \"`echo hoge`\", \
             attachments: [ \
               { \
                 title: \"${{ github.workflow }} \u0023${{ github.run_number }}\", \
-                title_link: \"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\", \
+                title_link: \"`echo ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} | sed 's/:/\\:/g'`\", \
                 color: \"\u0023ff0000\", \
                 fields: [ \
                   title: \"Branch\", \
@@ -31,7 +31,7 @@ jobs:
                 ] \
               } \
             ] \
-          }'
+          }"
           > payload.json
       - name: check
         if: always()
