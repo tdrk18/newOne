@@ -23,7 +23,7 @@ jobs:
             attachments: [ \
               { \
                 title: \"${{ github.workflow }} \u0023${{ github.run_number }}\", \
-                title_link: \"`echo ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} | sed 's/:/\\:/g'`\", \
+                title_link: \"`echo ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} | sed 's/:/\\u003A/g'`\", \
                 color: \"\u0023ff0000\", \
                 fields: [ \
                   title: \"Branch\", \
