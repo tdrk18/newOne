@@ -16,19 +16,16 @@ jobs:
           echo "something"
       - name: Send GitHub Action trigger message
         if: failure()
-        uses: slackapi/slack-github-action@v1.24.0
+        uses: slackapi/slack-github-action@v2.0.0
         with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
           payload: |
-            {
-              "text": "SwiftFormat daily が失敗しました",
-              "attachments": [
-                {
-                  "title": "${{ github.workflow }} #${{ github.run_number }}",
-                  "title_link": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-                  "color": "#ff0000"
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+            text: "SwiftFormat daily が失敗しました`echo hogehoge`"
+            attachments: 
+              - title: "${{ github.workflow }} #${{ github.run_number }}"
+                title_link: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                color: "#ff0000"
+                fields:
+                  - title: "Branch"
+                    value: ${{ github.event.pull_request.head.ref }}
