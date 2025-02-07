@@ -24,10 +24,10 @@ jobs:
               { \
                 \"title\": \"${{ github.workflow }} #${{ github.run_number }}\", \
                 \"title_link\": \"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\", \
-                \"color\": \"#ff0000\", \
+                \"color\": \"\#ff0000\", \
                 \"fields\": [ \
                   \"title\": \"Branch\", \
-                  \"value\": \"${{ github.event.pull_request.head.ref }}\", \
+                  \"value\": \"${{ github.event.pull_request.head.ref }}\" \
                 ] \
               } \
             ] \
