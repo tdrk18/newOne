@@ -27,18 +27,11 @@ jobs:
             '{ title: $title, title_link: $title_link, color: "#ff0000", text: $text }' \
           )"
           '{ text: $text , attachments: $data}'
+          > payload.json
       - name: Send GitHub Action trigger message
         if: failure()
         uses: slackapi/slack-github-action@v2.0.0
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
-          payload: |
-            text: "SwiftFormat daily が失敗しました`echo hogehoge`"
-            attachments: 
-              - title: "${{ github.workflow }} #${{ github.run_number }}"
-                title_link: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                color: "#ff0000"
-                fields:
-                  - title: "Branch"
-                    value: ${{ github.event.pull_request.head.ref }}
+          payload-file-path: "./payload.json"
